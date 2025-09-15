@@ -19,28 +19,59 @@ class DashboardController extends Controller
     {
         $role = Session::get('modules')['role'] ?? null;
 
-         $menus = DB::table('mst.mst_menu')
-                    ->leftJoin('mst.mst_role_menu', 'mst.mst_menu.id', '=', 'mst.mst_role_menu.mst_menu_id')
-                    ->leftJoin('mst.mst_user_role', 'mst.mst_role_menu.mst_user_role_id', '=', 'mst.mst_user_role.id')
-                    ->where('mst_user_role.role_name', $role ?? '')
-                    ->where('mst_menu.is_active', true)
-                    ->orderBy('mst.mst_menu.menu_order', 'asc')
-                    ->select('mst.mst_menu.*', 'mst.mst_role_menu.mst_user_role_id', 'mst.mst_user_role.role_name')
-                    ->get();
+        // ✅ Cek apakah session menus sudah ada
+        if (!Session::has('menus')) {
+            $menus = DB::table('mst.mst_menu')
+                ->leftJoin('mst.mst_role_menu', 'mst.mst_menu.id', '=', 'mst.mst_role_menu.mst_menu_id')
+                ->leftJoin('mst.mst_user_role', 'mst.mst_role_menu.mst_user_role_id', '=', 'mst.mst_user_role.id')
+                ->where('mst_user_role.role_name', $role ?? '')
+                ->where('mst_menu.is_active', true)
+                ->orderBy('mst.mst_menu.menu_order', 'asc')
+                ->select(
+                    'mst.mst_menu.*',
+                    'mst.mst_role_menu.mst_user_role_id',
+                    'mst.mst_user_role.role_name'
+                )
+                ->get();
 
-        $menuTree = $menus->groupBy('menu_parent');
+            $menuTree = $menus->groupBy('menu_parent');
 
-        Session::put('menus', $menuTree);
-            
+            Session::put('menus', $menuTree);
+        }
 
+        // ✅ Ambil data user dari session
+        $userdata = Session::get('user_module') ?? null;
+
+        if ($userdata) {
+            $username = $userdata['username'] ?? null;
+
+        
+            if ($username) {
+                $exists = DB::table('mst.mst_users_access')
+                    ->where('username', $username)
+                    ->exists();
+
+                if (!$exists) {
+                    DB::table('mst.mst_users_access')->insert([
+                        'username'     => $username,
+                        'nik'          => $userdata['nik'] ?? null,
+                        'fullname'     => $userdata['full_name'] ?? null,
+                        'email'     => $userdata['email'] ?? null,
+                        'entity'     => $userdata['entity'] ?? null,
+                        'role'         => $role,
+                        'created_by'   => $username,
+                        'created_date' => now(),
+                    ]);
+                }
+            }
+        }
+
+        // ✅ Role-based dashboard
         if ($role === 'ADMIN') {
             return $this->dashAdmin();
-        } 
-        elseif ($role === 'SUPER ADMIN') {
+        } elseif ($role === 'SUPER ADMIN') {
             return $this->dashSuperAdmin();
-        } 
-        else 
-        {
+        } else {
             $data = [
                 'title' => 'Access Forbidden',
                 'content' => 'global/notification/forbidden',
@@ -49,6 +80,8 @@ class DashboardController extends Controller
             return view('layout/wrapper', $data);
         }
     }
+
+
 
     private function dashAdmin()
     {
