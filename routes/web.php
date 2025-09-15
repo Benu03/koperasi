@@ -3,11 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     DashboardController,
-    MainController,
-    MasterController,
-    SecurityController,
-    CleanController,
-    ReportController
+    MainController
 
 };
 
@@ -33,20 +29,9 @@ Route::group(['middleware' => ['session_key']],function(){
     Route::post('/update-notif', [MainController::class, 'updateNotifIsread'])->name('updatenotif');
 
 
-    Route::get('/master-data', [MasterController::class, 'masterData'])->name('master-data');
-    Route::get('/karyawan', [MasterController::class, 'karyawan'])->name('karyawan');
-    Route::get('/perusahaan', [MasterController::class, 'perusahaan'])->name('perusahaan');
-    Route::get('/presensi', [MasterController::class, 'presensi'])->name('presensi');
 
 
-    
-    Route::get('/security', [SecurityController::class, 'Security'])->name('security');
-    
-    
-    Route::get('/cleaning', [CleanController::class, 'Cleaning'])->name('cleaning');
-    
-    
-    Route::get('/report', [ReportController::class, 'report'])->name('report');
+
     
 });
 

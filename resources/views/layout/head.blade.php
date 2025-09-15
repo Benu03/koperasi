@@ -211,10 +211,10 @@
      
   
   .pace .pace-progress {
-    background: #ce4444 !important;
+    background: #10a571 !important;
   }
   .pace .pace-progress-inner {
-      box-shadow: 0 0 10px #949494, 0 0 5px #ce4444 !important;
+      box-shadow: 0 0 10px #949494, 0 0 5px #10a571 !important;
   }
 
   </style>

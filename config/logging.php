@@ -67,7 +67,7 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel_qms.log'),
+            'path' => storage_path('logs/laravel_koperasi.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
             'replace_placeholders' => true,
@@ -76,7 +76,7 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'QMS LOG',
+            'username' => 'KOPERASI LOG',
             'emoji' => ':boom:',
             'level' => env('LOG_LEVEL', 'critical'),
             'replace_placeholders' => true,
@@ -85,7 +85,7 @@ return [
         'slack_error' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'QMS LOG',
+            'username' => 'KOPERASI LOG',
             'emoji' => ':boom:',
             'level' => env('LOG_LEVEL', 'error'),
             'replace_placeholders' => true,

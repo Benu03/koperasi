@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'qms'),
+    'default' => env('DB_CONNECTION', 'kpr'),
 
     /*
     |--------------------------------------------------------------------------
@@ -35,13 +35,13 @@ return [
 
     'connections' => [
 
-        'qms' => [
-            'driver'    => env('DB_DRIVER_QMS', 'pgsql'),
-            'host'      => env('DB_HOST_QMS', '127.0.0.1'),
-            'port'      => env('DB_PORT_QMS', 5432),
-            'database'  => env('DB_DATABASE_QMS', 'forge'),
-            'username'  => env('DB_USERNAME_QMS', 'forge'),
-            'password'  => env('DB_PASSWORD_QMS', ''),
+        'kpr' => [
+            'driver'    => env('DB_DRIVER_KPR', 'pgsql'),
+            'host'      => env('DB_HOST_KPR', '127.0.0.1'),
+            'port'      => env('DB_PORT_KPR', 5432),
+            'database'  => env('DB_DATABASE_KPR', 'forge'),
+            'username'  => env('DB_USERNAME_KPR', 'forge'),
+            'password'  => env('DB_PASSWORD_KPR', ''),
             'charset'   => 'utf8',
         ],
 

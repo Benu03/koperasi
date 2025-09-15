@@ -8,7 +8,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('lobby') }}" class="btn btn-sm rounded-pill" style="background-color: #ce4444; color: white;">
+            <a href="{{ route('lobby') }}" class="btn btn-sm rounded-pill" style="background-color: #10a571; color: white;">
                 <i class="fa fa-home"></i> Lobby
               </a>
         </li>
