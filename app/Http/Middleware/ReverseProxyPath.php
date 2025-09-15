@@ -21,7 +21,7 @@ class ReverseProxyPath
         if (config('static.app_env') !== 'local') {
 
             if (config('static.reverse_proxy') == true) {
-                $reverseProxyPath = '/3/';
+                $reverseProxyPath = '/6/';
             }
             else
             {
